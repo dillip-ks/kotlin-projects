@@ -20,6 +20,8 @@ import kotlin.system.exitProcess
 //    WORK
 // }
 
+/* This class defines the main logic  of operations that are performed on Tasks() data.
+ */
 class TaskManager {
     private val tasks = mutableListOf<Task>()
 

@@ -6,6 +6,9 @@ import taskmanager.taskexceptions.InvalidDateException
 import taskmanager.taskexceptions.InvalidPriorityException
 import java.time.LocalDate
 
+/** This data class implements the sealed class Task() to implement Personal Tasks .
+ * It has properties related to Personal tasks that are exception handled and tested.
+ */
 data class PersonalTask(
     override val taskTitle: String,
     var dueDate: LocalDate,
@@ -24,6 +27,9 @@ data class PersonalTask(
     }
 }
 
+/** This data class implements the sealed class Task() to implement Work Tasks .
+ * It has properties related to Work tasks that are exception handled and tested.
+ */
 data class WorkTask(
     override val taskTitle: String,
     var projectName: String? = null,
@@ -41,6 +47,9 @@ data class WorkTask(
     }
 }
 
+/** This data class implements the sealed class Task() to implement Educational Tasks .
+ * It has properties related to Educational tasks that are exception handled and tested.
+ */
 data class EducationalTask(
     override val taskTitle: String,
     var subjectName: String? = null,

@@ -1,9 +1,13 @@
 package taskmanager.taskexceptions
 
+/** This sealed class is implemented by subclasses to handle exceptions during runtime.
+ */
 sealed class TaskException(
     message: String,
 ) : IllegalArgumentException(message)
 
+/** The following  classes  handle exceptions during runtime and implement sealed class TaskException.
+ */
 class EmptyTitleException : TaskException("Task title must not be empty")
 
 class InvalidTaskTypeExeception : TaskException("The type of Task is invalid")
