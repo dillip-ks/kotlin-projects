@@ -1,4 +1,4 @@
-package arithmetic.exceptions
+package calculator.arithmetic.exceptions
 
 /** The sealed class CalculatorExceptions handles all runtime exceptions that may happen.
  *  It implements RuntimeException which is a type alias of java.lang.RuntimeException.

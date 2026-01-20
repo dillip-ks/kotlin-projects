@@ -1,4 +1,4 @@
-package arithmetic.operations
+package calculator.arithmetic.operations
 
 /** This Generic Interface has abstract functions that are to be overridden by subclasses.
  *  @param T a type parameter representing the specific number type.

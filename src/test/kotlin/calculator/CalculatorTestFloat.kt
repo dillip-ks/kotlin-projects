@@ -1,4 +1,6 @@
-import arithmetic.exceptions.CalculatorExceptions
+package calculator
+
+import calculator.arithmetic.exceptions.CalculatorExceptions
 import org.junit.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith

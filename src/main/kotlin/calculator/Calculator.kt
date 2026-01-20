@@ -1,5 +1,7 @@
-import arithmetic.exceptions.CalculatorExceptions
-import arithmetic.operations.Operations
+package calculator
+
+import calculator.arithmetic.exceptions.CalculatorExceptions
+import calculator.arithmetic.operations.Operations
 import kotlin.math.abs
 
 const val EPSILON = 1e-6
