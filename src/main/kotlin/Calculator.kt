@@ -124,9 +124,14 @@ fun main() {
             }
 
             2 -> {
-                print("Input (postfix):\t")
-                val result = objFloat.evaluate(readln())
-                println("Output: $result")
+                try {
+                    print("Input (postfix):\t")
+                    val result = objFloat.evaluate(readln())
+                    println("Output: $result")
+                } catch (e: CalculatorExceptions) {
+                    println(e.message)
+                    continue
+                }
             }
 
             3 -> {
