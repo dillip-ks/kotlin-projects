@@ -1,6 +1,5 @@
 package taskmanager
 
-import jdk.jshell.Snippet
 import taskmanager.taskclass.EducationalTask
 import taskmanager.taskclass.PersonalTask
 import taskmanager.taskclass.Priority
@@ -10,7 +9,7 @@ import taskmanager.taskclass.WorkTask
 import taskmanager.taskexceptions.DuplicateTaskException
 import taskmanager.taskexceptions.InvalidPriorityException
 import taskmanager.taskexceptions.InvalidStatusException
-import taskmanager.taskexceptions.InvalidTaskTypeExeception
+import taskmanager.taskexceptions.InvalidTaskTypeException
 import taskmanager.taskexceptions.TaskException
 import taskmanager.taskexceptions.TaskNotFoundException
 import taskmanager.taskexceptions.WrongInputException
@@ -24,8 +23,14 @@ import kotlin.system.exitProcess
 class TaskManager {
     private val tasks = mutableListOf<Task>()
 
+    /** This function checks weather the parameter passed is a valid enum constant of enum class Priority.
+     *
+     */
     fun isPriorityValid(priority: String): Priority? = Priority.entries.find { it.name == priority }
 
+    /** This function checks weather the parameter passed is a valid enum constant of enum class Status.
+     *
+     */
     fun isStatusValid(status: String): Status? = Status.entries.find { it.name == status }
 
     fun operation() {
@@ -66,6 +71,9 @@ class TaskManager {
         }
     }
 
+    /** This function formats the String Parameter passed into a LocalDate object.
+     *
+     */
     fun getDate(dateString: String): LocalDate {
         val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
         var date: LocalDate?
@@ -77,6 +85,9 @@ class TaskManager {
         return date
     }
 
+    /** This function takes input from the user and returns a Task object.
+     *
+     */
     fun createTask(): Task {
         println("\n Enter the Details of the Task:")
         print("Task Title:\t")
@@ -109,10 +120,13 @@ class TaskManager {
                 priority = priority,
             )
 
-            else -> throw InvalidTaskTypeExeception()
+            else -> throw InvalidTaskTypeException()
         }
     }
 
+    /** This function updates the data in the Task by using taskTitle as parameter.
+     *
+     */
     fun updateTask(title: String) {
         var task: Task? = tasks.find { it.taskTitle == title }
         if (task == null) throw TaskNotFoundException()
@@ -199,6 +213,9 @@ class TaskManager {
         tasks.add(task)
     }
 
+    /** This function deletes a Task object by taking a taskTitle as parameter.
+     *
+     */
     fun deleteTask(title: String) {
         if (tasks.any { it.taskTitle != title }) {
             throw TaskNotFoundException()
@@ -207,6 +224,9 @@ class TaskManager {
         println("The task was deleted Sucessfully!")
     }
 
+    /** This function accepts and prints a single Tasks object.
+     *
+     */
     fun printTask(task: Task) {
         when (task) {
             is PersonalTask -> {
@@ -242,8 +262,11 @@ class TaskManager {
         }
     }
 
+    /** This function accepts and prints a list of Tasks object.
+     *
+     */
     fun printTasks(tasks: List<Task>) {
-        if (tasks.size == 0) {
+        if (tasks.isEmpty()) {
             println("There are currently no tasks in task manager.")
             return
         }
@@ -286,12 +309,15 @@ class TaskManager {
         }
     }
 
+    /** This function filters out Tasks on basic of taskType and returns a List of Tasks of the taskType passed.
+     *
+     */
     fun getTasksByType(type: String): List<Task> =
         when (type) {
             "Personal" -> tasks.filterIsInstance<PersonalTask>()
             "Work" -> tasks.filterIsInstance<WorkTask>()
             "Educational" -> tasks.filterIsInstance<EducationalTask>()
-            else -> throw InvalidTaskTypeExeception()
+            else -> throw InvalidTaskTypeException()
         }
 
     fun getAllTasks(): List<Task> = tasks

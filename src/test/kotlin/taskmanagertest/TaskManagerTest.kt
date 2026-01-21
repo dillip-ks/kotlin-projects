@@ -12,7 +12,7 @@ import taskmanager.taskexceptions.InvalidContactNumberException
 import taskmanager.taskexceptions.InvalidDateException
 import taskmanager.taskexceptions.InvalidPriorityException
 import taskmanager.taskexceptions.InvalidStatusException
-import taskmanager.taskexceptions.InvalidTaskTypeExeception
+import taskmanager.taskexceptions.InvalidTaskTypeException
 import taskmanager.taskexceptions.TaskNotFoundException
 import taskmanager.taskexceptions.WrongInputException
 import java.time.LocalDate
@@ -30,10 +30,8 @@ class TaskManagerTest {
         }
 
         @Test
-        fun `invalid priority enum throws exception`() {
-            assertFailsWith<InvalidPriorityException> {
-                manager.isPriorityValid("important")
-            }
+        fun `invalid priority enum returns null`() {
+            assertEquals(null, manager.isPriorityValid("IMP"))
         }
 
         @Test
@@ -42,10 +40,8 @@ class TaskManagerTest {
         }
 
         @Test
-        fun `invalid status enum throws exception`() {
-            assertFailsWith<InvalidStatusException> {
-                manager.isStatusValid("important")
-            }
+        fun `invalid status enum returns null`() {
+            assertEquals(null, manager.isStatusValid("IMP"))
         }
     }
 
@@ -76,7 +72,7 @@ class TaskManagerTest {
                 PersonalTask(
                     taskTitle = "hello",
                     dueDate = LocalDate.now().plusDays(10),
-                    priority = 2,
+                    priority = Priority.HIGH,
                 )
             manager.addTasks(task)
             assertEquals(1, manager.getAllTasks().size)
@@ -88,7 +84,7 @@ class TaskManagerTest {
                 WorkTask(
                     taskTitle = "hello",
                     deadline = LocalDate.now().plusDays(29),
-                    priority = 1,
+                    priority = Priority.HIGH,
                 )
             manager.addTasks(task)
             assertFailsWith<DuplicateTaskException> {
@@ -112,7 +108,7 @@ class TaskManagerTest {
                 PersonalTask(
                     taskTitle = "hello",
                     dueDate = LocalDate.now().plusDays(10),
-                    priority = 2,
+                    priority = Priority.HIGH,
                 )
             manager.addTasks(task)
             assertEquals(1, manager.getAllTasks().size)
@@ -131,7 +127,7 @@ class TaskManagerTest {
 
         @Test
         fun `get tasks by type with incorrect type throws exception`() {
-            assertFailsWith<InvalidTaskTypeExeception> {
+            assertFailsWith<InvalidTaskTypeException> {
                 val data = manager.getTasksByType("Social")
             }
         }
@@ -147,7 +143,7 @@ class TaskManagerTest {
                     PersonalTask(
                         taskTitle = "",
                         dueDate = LocalDate.now().plusDays(10),
-                        priority = 2,
+                        priority = Priority.HIGH,
                     )
             }
         }
@@ -159,7 +155,7 @@ class TaskManagerTest {
                     PersonalTask(
                         taskTitle = "hola",
                         dueDate = LocalDate.now().minusDays(2),
-                        priority = 2,
+                        priority = Priority.LOW,
                     )
             }
         }
@@ -172,19 +168,7 @@ class TaskManagerTest {
                         taskTitle = "hola",
                         dueDate = LocalDate.now().plusDays(2),
                         reminderTime = LocalDate.now().minusDays(2),
-                        priority = 2,
-                    )
-            }
-        }
-
-        @Test
-        fun `wrong priority value throws exception`() {
-            assertFailsWith<InvalidPriorityException> {
-                val task =
-                    PersonalTask(
-                        taskTitle = "hola",
-                        dueDate = LocalDate.now().plusDays(2),
-                        priority = 22,
+                        priority = Priority.HIGH,
                     )
             }
         }
@@ -196,7 +180,7 @@ class TaskManagerTest {
                     PersonalTask(
                         taskTitle = "hola",
                         dueDate = LocalDate.now().plusDays(2),
-                        priority = 2,
+                        priority = Priority.HIGH,
                         contact = "987657",
                     )
             }
@@ -213,7 +197,7 @@ class TaskManagerTest {
                     WorkTask(
                         taskTitle = "",
                         deadline = LocalDate.now().plusDays(10),
-                        priority = 2,
+                        priority = Priority.HIGH,
                     )
             }
         }
@@ -225,19 +209,7 @@ class TaskManagerTest {
                     WorkTask(
                         taskTitle = "hola",
                         deadline = LocalDate.now().minusDays(2),
-                        priority = 2,
-                    )
-            }
-        }
-
-        @Test
-        fun `wrong priority value throws exception`() {
-            assertFailsWith<InvalidPriorityException> {
-                val task =
-                    WorkTask(
-                        taskTitle = "hola",
-                        deadline = LocalDate.now().plusDays(2),
-                        priority = 22,
+                        priority = Priority.HIGH,
                     )
             }
         }
@@ -253,7 +225,7 @@ class TaskManagerTest {
                     EducationalTask(
                         taskTitle = "",
                         dueDate = LocalDate.now().plusDays(10),
-                        priority = 2,
+                        priority = Priority.HIGH,
                     )
             }
         }
@@ -265,19 +237,7 @@ class TaskManagerTest {
                     EducationalTask(
                         taskTitle = "hola",
                         dueDate = LocalDate.now().minusDays(2),
-                        priority = 2,
-                    )
-            }
-        }
-
-        @Test
-        fun `wrong priority value throws exception`() {
-            assertFailsWith<InvalidPriorityException> {
-                val task =
-                    EducationalTask(
-                        taskTitle = "hola",
-                        dueDate = LocalDate.now().plusDays(2),
-                        priority = 22,
+                        priority = Priority.HIGH,
                     )
             }
         }

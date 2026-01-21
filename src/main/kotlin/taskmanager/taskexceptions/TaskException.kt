@@ -10,7 +10,7 @@ sealed class TaskException(
  */
 class EmptyTitleException : TaskException("Task title must not be empty")
 
-class InvalidTaskTypeExeception : TaskException("The type of Task is invalid")
+class InvalidTaskTypeException : TaskException("The type of Task is invalid")
 
 class DuplicateTaskException : TaskException("The Task is already present")
 
