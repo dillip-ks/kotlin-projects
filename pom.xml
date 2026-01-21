@@ -119,6 +119,12 @@
             <version>20251224</version>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>io.github.cdimascio</groupId>
+            <artifactId>dotenv-kotlin</artifactId>
+            <version>6.5.1</version> <!-- Use the latest version -->
+        </dependency>
+
     </dependencies>
 
 </project>
