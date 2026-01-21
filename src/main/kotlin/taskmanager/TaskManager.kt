@@ -1,10 +1,15 @@
 package taskmanager
 
+import jdk.jshell.Snippet
 import taskmanager.taskclass.EducationalTask
 import taskmanager.taskclass.PersonalTask
+import taskmanager.taskclass.Priority
+import taskmanager.taskclass.Status
 import taskmanager.taskclass.Task
 import taskmanager.taskclass.WorkTask
 import taskmanager.taskexceptions.DuplicateTaskException
+import taskmanager.taskexceptions.InvalidPriorityException
+import taskmanager.taskexceptions.InvalidStatusException
 import taskmanager.taskexceptions.InvalidTaskTypeExeception
 import taskmanager.taskexceptions.TaskException
 import taskmanager.taskexceptions.TaskNotFoundException
@@ -14,16 +19,14 @@ import java.time.format.DateTimeFormatter
 import java.time.format.DateTimeParseException
 import kotlin.system.exitProcess
 
-// enum class Type {
-//    PERSONAL,
-//    EDUCATIONAL,
-//    WORK
-// }
-
 /* This class defines the main logic  of operations that are performed on Tasks() data.
  */
 class TaskManager {
     private val tasks = mutableListOf<Task>()
+
+    fun isPriorityValid(priority: String): Priority? = Priority.entries.find { it.name == priority }
+
+    fun isStatusValid(status: String): Status? = Status.entries.find { it.name == status }
 
     fun operation() {
         print("\nTask Operations:\n1. Add Task\n2. Modify Task\n3. Display Tasks\n4. Display Tasks by Type\n5. Delete Task\n6. None\n")
@@ -41,19 +44,12 @@ class TaskManager {
             }
 
             3 -> {
-                val tasks = getAllTasks()
-                for (i in tasks) {
-                    println("-------------------------------------------------------------")
-                    printTask(i)
-                }
+                printTasks(getAllTasks())
             }
 
             4 -> {
                 print("\nEnter Type Of Task To Display (Personal, Work, Educational): \t")
-                val tasks = getTasksByType(readln())
-                for (i in tasks) {
-                    printTask(i)
-                }
+                printTasks(getTasksByType(readln()))
             }
 
             5 -> {
@@ -85,8 +81,9 @@ class TaskManager {
         println("\n Enter the Details of the Task:")
         print("Task Title:\t")
         val title = readln()
-        print("Task Priority: (1, 2, 3, 4, 5)\t")
-        val priority = readln().toInt()
+        print("Task Priority: (HIGH, MED, LOW)\t")
+        val priority = isPriorityValid(readln().uppercase()) ?: throw InvalidPriorityException()
+
         print("Task Due Date:(yyyy-MM-dd) \t")
 
         val dueDate: LocalDate = getDate(readln())
@@ -127,8 +124,8 @@ class TaskManager {
                 print("Due Date: \t")
                 task.dueDate = getDate(readln())
 
-                print("priority: \t")
-                task.priority = readln().toInt()
+                print("priority:(HIGH, MED, LOW) \t")
+                task.priority = isPriorityValid(readln().uppercase()) ?: throw InvalidPriorityException()
 
                 print("Location: \t")
                 task.location = readln()
@@ -153,8 +150,8 @@ class TaskManager {
                 print("Project Name: \t")
                 task.projectName = readln()
 
-                print("priority: \t")
-                task.priority = readln().toInt()
+                print("priority: (HIGH, MED, LOW)\t")
+                task.priority = isPriorityValid(readln().uppercase()) ?: throw InvalidPriorityException()
 
                 print("assignedTo: \t")
                 task.assignedTo = readln()
@@ -163,7 +160,7 @@ class TaskManager {
                 task.clientName = readln()
 
                 print("status: \t")
-                task.status = readln()
+                task.status = isStatusValid(readln().uppercase()) ?: throw InvalidStatusException()
 
                 print("estimatedHours: \t")
                 task.estimatedHours = readln().toInt()
@@ -180,8 +177,8 @@ class TaskManager {
                 print("subjectName: \t")
                 task.subjectName = readln()
 
-                print("priority: \t")
-                task.priority = readln().toInt()
+                print("priority:(HIGH, MED, LOW) \t")
+                task.priority = isPriorityValid(readln().uppercase()) ?: throw InvalidPriorityException()
 
                 print("instructor: \t")
                 task.instructor = readln()
@@ -241,6 +238,50 @@ class TaskManager {
                 println("instructor: ${task.instructor}")
                 println("notes: ${task.notes}")
                 println("classLocation: ${task.classLocation}")
+            }
+        }
+    }
+
+    fun printTasks(tasks: List<Task>) {
+        if (tasks.size == 0) {
+            println("There are currently no tasks in task manager.")
+            return
+        }
+        for (task in tasks) {
+            when (task) {
+                is PersonalTask -> {
+                    println("______________________________")
+                    println("Title: ${task.taskTitle}")
+                    println("Due Date: ${task.dueDate}")
+                    println("priority: ${task.priority}")
+                    println("Location: ${task.location}")
+                    println("ReminderTime: ${task.reminderTime}")
+                    println("Notes: ${task.notes}")
+                    println("Contact: ${task.contact}")
+                }
+
+                is WorkTask -> {
+                    println("______________________________")
+                    println("Title: ${task.taskTitle}")
+                    println("projectName: ${task.projectName}")
+                    println("deadline: ${task.deadline}")
+                    println("priority: ${task.priority}")
+                    println("assignedTo: ${task.assignedTo}")
+                    println("estimatedHours: ${task.estimatedHours}")
+                    println("clientName: ${task.clientName}")
+                    println("status: ${task.status}")
+                }
+
+                is EducationalTask -> {
+                    println("______________________________")
+                    println("Title: ${task.taskTitle}")
+                    println("subjectName: ${task.subjectName}")
+                    println("dueDate: ${task.dueDate}")
+                    println("priority: ${task.priority}")
+                    println("instructor: ${task.instructor}")
+                    println("notes: ${task.notes}")
+                    println("classLocation: ${task.classLocation}")
+                }
             }
         }
     }

@@ -3,12 +3,15 @@ package taskmanagertest
 import taskmanager.TaskManager
 import taskmanager.taskclass.EducationalTask
 import taskmanager.taskclass.PersonalTask
+import taskmanager.taskclass.Priority
+import taskmanager.taskclass.Status
 import taskmanager.taskclass.WorkTask
 import taskmanager.taskexceptions.DuplicateTaskException
 import taskmanager.taskexceptions.EmptyTitleException
 import taskmanager.taskexceptions.InvalidContactNumberException
 import taskmanager.taskexceptions.InvalidDateException
 import taskmanager.taskexceptions.InvalidPriorityException
+import taskmanager.taskexceptions.InvalidStatusException
 import taskmanager.taskexceptions.InvalidTaskTypeExeception
 import taskmanager.taskexceptions.TaskNotFoundException
 import taskmanager.taskexceptions.WrongInputException
@@ -18,6 +21,34 @@ import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
 
 class TaskManagerTest {
+    class EnumTest {
+        private val manager = TaskManager()
+
+        @Test
+        fun `valid priority enum retuns an enum`() {
+            assertEquals(Priority.HIGH, manager.isPriorityValid("HIGH"))
+        }
+
+        @Test
+        fun `invalid priority enum throws exception`() {
+            assertFailsWith<InvalidPriorityException> {
+                manager.isPriorityValid("important")
+            }
+        }
+
+        @Test
+        fun `valid status enum returns an enum`() {
+            assertEquals(Status.COMPLETED, manager.isStatusValid("COMPLETED"))
+        }
+
+        @Test
+        fun `invalid status enum throws exception`() {
+            assertFailsWith<InvalidStatusException> {
+                manager.isStatusValid("important")
+            }
+        }
+    }
+
     class LocalDateTest {
         private val manager = TaskManager()
 

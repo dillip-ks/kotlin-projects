@@ -14,7 +14,7 @@ data class PersonalTask(
     var dueDate: LocalDate,
     var location: String? = null,
     var notes: String? = null,
-    var priority: Int,
+    var priority: Priority,
     var reminderTime: LocalDate? = null,
     var contact: String? = null,
 ) : Task() {
@@ -22,7 +22,7 @@ data class PersonalTask(
         if (taskTitle.isBlank()) throw EmptyTitleException()
         if (dueDate.isBefore(LocalDate.now())) throw InvalidDateException()
         if (reminderTime != null && reminderTime!!.isBefore(LocalDate.now())) throw InvalidDateException()
-        if (priority !in 1..5) throw InvalidPriorityException()
+//        if (priority !in 1..5) throw InvalidPriorityException()
         if (contact != null && contact!!.length < 10) throw InvalidContactNumberException()
     }
 }
@@ -35,15 +35,15 @@ data class WorkTask(
     var projectName: String? = null,
     var deadline: LocalDate,
     var assignedTo: String? = null,
-    var priority: Int,
-    var status: String? = null,
+    var priority: Priority,
+    var status: Status = Status.NONE,
     var clientName: String? = null,
     var estimatedHours: Int? = 0,
 ) : Task() {
     init {
         if (taskTitle.isBlank()) throw EmptyTitleException()
         if (deadline.isBefore(LocalDate.now())) throw InvalidDateException()
-        if (priority !in 1..5) throw InvalidPriorityException()
+//        if (priority !in 1..5) throw InvalidPriorityException()
     }
 }
 
@@ -55,7 +55,7 @@ data class EducationalTask(
     var subjectName: String? = null,
     var dueDate: LocalDate,
     var instructor: String? = null,
-    var priority: Int,
+    var priority: Priority,
     var notes: String? = null,
     var classLocation: String? = null,
 //    var groupMembers: ArrayList<String>
@@ -63,6 +63,6 @@ data class EducationalTask(
     init {
         if (taskTitle.isBlank()) throw EmptyTitleException()
         if (dueDate.isBefore(LocalDate.now())) throw InvalidDateException()
-        if (priority !in 1..5) throw InvalidPriorityException()
+//        if (priority !in 1..5) throw InvalidPriorityException()
     }
 }

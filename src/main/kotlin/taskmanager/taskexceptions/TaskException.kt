@@ -20,6 +20,8 @@ class WrongInputException : TaskException("The input is invalid")
 
 class InvalidDateException : TaskException("Due date must not be in the past")
 
-class InvalidPriorityException : TaskException("Priority must be between 1 and 5")
+class InvalidPriorityException : TaskException("Priority must be HIGH, MED or LOW")
+
+class InvalidStatusException : TaskException("Status must be PENDING, COMPLETED or NONE")
 
 class InvalidContactNumberException : TaskException("Contact number must be of 10 digits!!")
