@@ -1,0 +1,14 @@
+name: SignInMobile
+comment: Send a request to sign in for the service using email and password in mobile.
+request:
+  - name: emailId
+    type: String
+    comment: unique email id
+  - name: password
+    type: String
+    validations:
+      minSize: 12
+      matches: [A-Za-z0-9@$!%*?&]
+    comment: password for the service.
+errors:
+  - code: INVALID_CREDENTIALS

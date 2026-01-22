@@ -1,0 +1,10 @@
+name: NoteContent
+cases:
+  - name: TEXT
+    attributes:
+      - name: title
+        type: String
+  - name: TEXT
+    attributes:
+      - name: body
+        type: Strings

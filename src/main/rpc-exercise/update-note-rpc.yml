@@ -1,0 +1,16 @@
+name: UpdateNote
+comment: Create a new note and return it.
+request:
+  - name: id
+    type: UUID
+  - name: noteInfo
+    type: NoteContent
+response:
+  - name: note
+    type: Note
+errors:
+  - code : NOTE_TOO_LARGE
+  - code : NOTE_NOT_FOUND
+requiresAuthentication: CLIENT_TO_SERVER
+requiresPrivileges:
+  - UPDATE_NOTE

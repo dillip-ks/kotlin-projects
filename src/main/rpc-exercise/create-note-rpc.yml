@@ -1,0 +1,14 @@
+name: CreateNote
+comment: create a new note and return it.
+request:
+  - name: noteInfo
+    type: NoteContent
+response:
+  - name: note
+    type: Note
+errors:
+  - code : NOTE_TOO_LARGE
+  - code : NOTE_ALREADY_EXISTS
+requiresAuthentication: CLIENT_TO_SERVER
+requiresPrivileges:
+  - CREATE_NOTE

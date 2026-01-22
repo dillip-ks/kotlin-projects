@@ -1,0 +1,15 @@
+name: SignUpWeb
+comment: Send a request to sign up for the service using email and password on the web.
+request:
+  - name: emailId
+    type: String
+    comment: unique email id
+  - name: password
+    type: String
+    validations:
+      minSize: 12
+      matches: [A-Za-z0-9@$!%*?&]
+    comment: strong password for the service.
+errors:
+  - code: EMAIL_ID_ALREADY_EXISTS
+  - code: INSECURE_PASSWORD

@@ -1,0 +1,5 @@
+privileges:
+  - CREATE_NOTE
+  - LIST_NOTES
+  - UPDATE_NOTE
+  - DELETE_NOTE

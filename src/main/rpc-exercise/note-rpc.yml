@@ -1,0 +1,13 @@
+name: Note
+comment: Represents a standard note
+attributes:
+  - name: id
+    type: UUID
+    comment: Unique id representing the note
+  - name: noteInfo
+    type: NoteContent
+    comment: ENUM representing th content of the note
+  - name: createdAt
+    type: TimeStamp
+  - name: lastModifiedAt
+    type: TimeStamp

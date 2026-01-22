@@ -1,0 +1,9 @@
+name: ListNotes
+comment: Return the notes posted by the user
+response:
+  - name: notes
+    type: List
+    elementType: Note
+requiresAuthentication: CLIENT_TO_SERVER
+requiresPrivileges:
+  - LIST_NOTES
