@@ -6,7 +6,8 @@ import kotlin.math.abs
 
 const val EPSILON = 1e-6
 
-/** This Object  implements the Operations interface with type Int.
+/**
+ * This Object  implements the Operations interface with type Int.
  */
 object IntegerOperations : Operations<Int> {
     override fun parse(token: String): Int = token.toIntOrNull() ?: throw CalculatorExceptions.InvalidTokenExpression(token)
@@ -35,7 +36,8 @@ object IntegerOperations : Operations<Int> {
     }
 }
 
-/** This Object  implements the Operations interface with type Float.
+/**
+ * This Object  implements the Operations interface with type Float.
  */
 object FloatOperations : Operations<Float> {
     override fun parse(token: String): Float = token.toFloatOrNull() ?: throw CalculatorExceptions.InvalidTokenExpression(token)
@@ -64,7 +66,8 @@ object FloatOperations : Operations<Float> {
     }
 }
 
-/** This is the Class file where expression evaluation logic is handled.
+/**
+ *  This is the Class file where expression evaluation logic is handled.
  *  The evaluate function uses ArrayDeque<T> as a Stack to keep track of Int and Float Operands.
  */
 class Calculator<T : Number>(
@@ -104,20 +107,21 @@ class Calculator<T : Number>(
     }
 }
 
-/** This is the point where the execution of the program starts.
+/**
+ *  This is the point where the execution of the program starts.
  *  It also provides the interface to take input and give output.
  */
 fun main() {
     println("--|____WELCOME TO COMMAND LINE CALCULATOR_____|--")
-    val objInt = Calculator(IntegerOperations)
-    val objFloat = Calculator(FloatOperations)
+    val integerOperationsObject = Calculator(IntegerOperations)
+    val floatOperationsObject = Calculator(FloatOperations)
     while (true) {
         print("Choose the type of operations you wish to perform (1.Int \t 2.Double \t  3.EXIT): \t")
         when (readln().toIntOrNull()) {
             1 -> {
                 try {
                     print("Input (postfix): \t")
-                    val result = objInt.evaluate(readln())
+                    val result = integerOperationsObject.evaluate(readln())
                     println("output: $result")
                 } catch (e: CalculatorExceptions) {
                     println(e.message)
@@ -128,7 +132,7 @@ fun main() {
             2 -> {
                 try {
                     print("Input (postfix):\t")
-                    val result = objFloat.evaluate(readln())
+                    val result = floatOperationsObject.evaluate(readln())
                     println("Output: $result")
                 } catch (e: CalculatorExceptions) {
                     println(e.message)
