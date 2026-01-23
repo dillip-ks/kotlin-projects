@@ -124,6 +124,7 @@ fun main() {
                     val result = integerOperationsObject.evaluate(readln())
                     println("output: $result")
                 } catch (e: CalculatorExceptions) {
+                    println(e.printStackTrace())
                     println(e.message)
                     continue
                 }
@@ -135,6 +136,7 @@ fun main() {
                     val result = floatOperationsObject.evaluate(readln())
                     println("Output: $result")
                 } catch (e: CalculatorExceptions) {
+                    println(e.printStackTrace())
                     println(e.message)
                     continue
                 }
