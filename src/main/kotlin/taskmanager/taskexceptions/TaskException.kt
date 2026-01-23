@@ -1,26 +1,28 @@
 package taskmanager.taskexceptions
 
-/** This sealed class is implemented by subclasses to handle exceptions during runtime.
+/**
+ * This sealed class is implemented by subclasses to handle exceptions during runtime.
  */
 sealed class TaskException(
     message: String,
 ) : IllegalArgumentException(message)
 
-/** The following  classes  handle exceptions during runtime and implement sealed class TaskException.
+/**
+ * The following  classes  handle exceptions during runtime and implement sealed class TaskException.
  */
 class EmptyTitleException : TaskException("Task title must not be empty")
 
-class InvalidTaskTypeException : TaskException("The type of Task is invalid")
+class InvalidTaskTypeException : TaskException("The type of task is invalid")
 
-class DuplicateTaskException : TaskException("The Task is already present")
+class DuplicateTaskException : TaskException("The task is already present")
 
-class TaskNotFoundException : TaskException(" The Task is not available")
+class TaskNotFoundException : TaskException(" The task is not found")
 
 class WrongInputException : TaskException("The input is invalid")
 
 class InvalidDateException : TaskException("Due date must not be in the past")
 
-class InvalidPriorityException : TaskException("Priority must be HIGH, MED or LOW")
+class InvalidPriorityException : TaskException("Priority must be HIGH, MEDIUM or LOW")
 
 class InvalidStatusException : TaskException("Status must be PENDING, COMPLETED or NONE")
 

@@ -18,18 +18,19 @@ import java.time.format.DateTimeFormatter
 import java.time.format.DateTimeParseException
 import kotlin.system.exitProcess
 
-/* This class defines the main logic  of operations that are performed on Tasks() data.
- */
+/**
+ *  This class defines the main logic  of operations that are performed on Tasks() data.
+*/
 class TaskManager {
     private val tasks = mutableListOf<Task>()
 
-    /** This function checks weather the parameter passed is a valid enum constant of enum class Priority.
-     *
+    /**
+     *  This function checks weather the parameter passed is a valid enum constant of enum class Priority.
      */
     fun isPriorityValid(priority: String): Priority? = Priority.entries.find { it.name == priority }
 
-    /** This function checks weather the parameter passed is a valid enum constant of enum class Status.
-     *
+    /**
+     *  This function checks weather the parameter passed is a valid enum constant of enum class Status.
      */
     fun isStatusValid(status: String): Status? = Status.entries.find { it.name == status }
 
@@ -72,8 +73,8 @@ class TaskManager {
         }
     }
 
-    /** This function formats the String Parameter passed into a LocalDate object.
-     *
+    /**
+     *  This function formats the String Parameter passed into a LocalDate object.
      */
     fun getDate(dateString: String): LocalDate {
         val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
@@ -86,8 +87,8 @@ class TaskManager {
         return date
     }
 
-    /** This function takes input from the user and returns a Task object.
-     *
+    /**
+     *  This function takes input from the user and returns a Task object.
      */
     fun createTask(): Task {
         println("\n Enter the Details of the Task:")
@@ -127,8 +128,8 @@ class TaskManager {
         }
     }
 
-    /** This function updates the data in the Task by using taskTitle as parameter.
-     *
+    /**
+     *  This function updates the data in the Task by using taskTitle as parameter.
      */
     fun updateTask(title: String) {
         val task: Task? = tasks.find { it.taskTitle == title }
@@ -219,8 +220,8 @@ class TaskManager {
         tasks.add(task)
     }
 
-    /** This function deletes a Task object by taking a taskTitle as parameter.
-     *
+    /**
+     *  This function deletes a Task object by taking a taskTitle as parameter.
      */
     fun deleteTask(title: String) {
         if (tasks.any { it.taskTitle != title }) {
@@ -230,8 +231,8 @@ class TaskManager {
         println("The task was deleted Sucessfully!")
     }
 
-    /** This function accepts and prints a single Tasks object.
-     *
+    /**
+     *  This function accepts and prints a single Tasks object.
      */
     fun printTask(task: Task) {
         when (task) {
@@ -268,8 +269,8 @@ class TaskManager {
         }
     }
 
-    /** This function accepts and prints a list of Tasks object.
-     *
+    /**
+     * This function accepts and prints a list of Tasks object.
      */
     fun printTasks(tasks: List<Task>) {
         if (tasks.isEmpty()) {
@@ -316,8 +317,8 @@ class TaskManager {
         }
     }
 
-    /** This function filters out Tasks on basic of taskType and returns a List of Tasks of the taskType passed.
-     *
+    /**
+     *  This function filters out Tasks on basic of taskType and returns a List of Tasks of the taskType passed.
      */
     fun getTasksByType(type: String): List<Task> =
         when (type) {
@@ -332,11 +333,12 @@ class TaskManager {
 
 fun main() {
     println("(__TASK_MANAGER__)")
-    val obj = TaskManager()
+    val manager = TaskManager()
     while (true) {
         try {
-            obj.operation()
+            manager.operation()
         } catch (e: TaskException) {
+            println(e.printStackTrace())
             println(e.message)
         } finally {
             continue

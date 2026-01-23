@@ -25,7 +25,7 @@ class TaskManagerTest {
         private val manager = TaskManager()
 
         @Test
-        fun `valid priority enum retuns an enum`() {
+        fun `valid priority enum returns an enum`() {
             assertEquals(Priority.HIGH, manager.isPriorityValid("HIGH"))
         }
 

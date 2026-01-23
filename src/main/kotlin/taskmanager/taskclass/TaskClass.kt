@@ -6,7 +6,8 @@ import taskmanager.taskexceptions.InvalidDateException
 import taskmanager.taskexceptions.InvalidPriorityException
 import java.time.LocalDate
 
-/** This data class implements the sealed class Task() to implement Personal Tasks .
+/**
+ * This data class implements the sealed class Task() to implement Personal Tasks .
  * It has properties related to Personal tasks that are exception handled and tested.
  */
 data class PersonalTask(
@@ -26,7 +27,8 @@ data class PersonalTask(
     }
 }
 
-/** This data class implements the sealed class Task() to implement Work Tasks .
+/**
+ * This data class implements the sealed class Task() to implement Work Tasks .
  * It has properties related to Work tasks that are exception handled and tested.
  */
 data class WorkTask(
@@ -45,7 +47,8 @@ data class WorkTask(
     }
 }
 
-/** This data class implements the sealed class Task() to implement Educational Tasks .
+/**
+ * This data class implements the sealed class Task() to implement Educational Tasks .
  * It has properties related to Educational tasks that are exception handled and tested.
  */
 data class EducationalTask(
