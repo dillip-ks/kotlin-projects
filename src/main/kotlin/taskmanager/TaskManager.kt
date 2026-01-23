@@ -36,7 +36,7 @@ class TaskManager {
     fun operation() {
         print("\nTask Operations:\n1. Add Task\n2. Modify Task\n3. Display Tasks\n4. Display Tasks by Type\n5. Delete Task\n6. None\n")
         print("\nEnter Operation: \t")
-        var option = readln().toInt()
+        val option = readln().toInt()
         when (option) {
             1 -> {
                 val task: Task = createTask()
@@ -44,7 +44,7 @@ class TaskManager {
             }
 
             2 -> {
-                print("\nEnter Task To Update: \t")
+                print("\nEnter Task Title  To Update task: \t")
                 updateTask(readln())
             }
 
@@ -54,10 +54,11 @@ class TaskManager {
 
             4 -> {
                 print("\nEnter Type Of Task To Display (Personal, Work, Educational): \t")
-                printTasks(getTasksByType(readln()))
+                printTasks(getTasksByType(readln().lowercase()))
             }
 
             5 -> {
+                print("\nEnter Task Title  To Delete task: \t")
                 deleteTask(readln())
             }
 
@@ -92,7 +93,9 @@ class TaskManager {
         println("\n Enter the Details of the Task:")
         print("Task Title:\t")
         val title = readln()
-        print("Task Priority: (HIGH, MED, LOW)\t")
+        print("Task Priority: (HIGH, MEDIUM, LOW)\t")
+
+        // Throw error if the priority value is empty.
         val priority = isPriorityValid(readln().uppercase()) ?: throw InvalidPriorityException()
 
         print("Task Due Date:(yyyy-MM-dd) \t")
@@ -128,7 +131,7 @@ class TaskManager {
      *
      */
     fun updateTask(title: String) {
-        var task: Task? = tasks.find { it.taskTitle == title }
+        val task: Task? = tasks.find { it.taskTitle == title }
         if (task == null) throw TaskNotFoundException()
         when (task) {
             is PersonalTask -> {
@@ -202,6 +205,9 @@ class TaskManager {
 
                 print("classLocation: \t")
                 task.classLocation = readln()
+
+                print("Group Memebers: (separated by spaces) ")
+                task.groupMembers = (readln().split(" "))
             }
         }
     }
@@ -232,7 +238,7 @@ class TaskManager {
             is PersonalTask -> {
                 println("Title: ${task.taskTitle}")
                 println("Due Date: ${task.dueDate}")
-                println("priority: ${task.priority}")
+                println("Priority: ${task.priority}")
                 println("Location: ${task.location}")
                 println("ReminderTime: ${task.reminderTime}")
                 println("Notes: ${task.notes}")
@@ -241,23 +247,23 @@ class TaskManager {
 
             is WorkTask -> {
                 println("Title: ${task.taskTitle}")
-                println("projectName: ${task.projectName}")
-                println("deadline: ${task.deadline}")
-                println("priority: ${task.priority}")
-                println("assignedTo: ${task.assignedTo}")
-                println("estimatedHours: ${task.estimatedHours}")
-                println("clientName: ${task.clientName}")
+                println("Project Name: ${task.projectName}")
+                println("Deadline: ${task.deadline}")
+                println("PAssignedTo: ${task.assignedTo}")
+                println("Estimated Hours: ${task.estimatedHours}")
+                println("Client Name: ${task.clientName}")
                 println("status: ${task.status}")
             }
 
             is EducationalTask -> {
                 println("Title: ${task.taskTitle}")
-                println("subjectName: ${task.subjectName}")
-                println("dueDate: ${task.dueDate}")
+                println("Subject Name: ${task.subjectName}")
+                println("DueDate: ${task.dueDate}")
                 println("priority: ${task.priority}")
-                println("instructor: ${task.instructor}")
-                println("notes: ${task.notes}")
-                println("classLocation: ${task.classLocation}")
+                println("Instructor: ${task.instructor}")
+                println("Notes: ${task.notes}")
+                println("Class Location: ${task.classLocation}")
+                println("Group members: ${task.groupMembers}")
             }
         }
     }
@@ -286,24 +292,25 @@ class TaskManager {
                 is WorkTask -> {
                     println("______________________________")
                     println("Title: ${task.taskTitle}")
-                    println("projectName: ${task.projectName}")
-                    println("deadline: ${task.deadline}")
-                    println("priority: ${task.priority}")
-                    println("assignedTo: ${task.assignedTo}")
-                    println("estimatedHours: ${task.estimatedHours}")
-                    println("clientName: ${task.clientName}")
+                    println("Project Name: ${task.projectName}")
+                    println("Deadline: ${task.deadline}")
+                    println("Priority: ${task.priority}")
+                    println("Assigned To: ${task.assignedTo}")
+                    println("EstimatedH ours: ${task.estimatedHours}")
+                    println("Client Name: ${task.clientName}")
                     println("status: ${task.status}")
                 }
 
                 is EducationalTask -> {
                     println("______________________________")
                     println("Title: ${task.taskTitle}")
-                    println("subjectName: ${task.subjectName}")
-                    println("dueDate: ${task.dueDate}")
-                    println("priority: ${task.priority}")
-                    println("instructor: ${task.instructor}")
-                    println("notes: ${task.notes}")
-                    println("classLocation: ${task.classLocation}")
+                    println("Subject Name: ${task.subjectName}")
+                    println("Due Date: ${task.dueDate}")
+                    println("Priority: ${task.priority}")
+                    println("Instructor: ${task.instructor}")
+                    println("Notes: ${task.notes}")
+                    println("Class Location: ${task.classLocation}")
+                    println("Group members: ${task.groupMembers}")
                 }
             }
         }
@@ -314,9 +321,9 @@ class TaskManager {
      */
     fun getTasksByType(type: String): List<Task> =
         when (type) {
-            "Personal" -> tasks.filterIsInstance<PersonalTask>()
-            "Work" -> tasks.filterIsInstance<WorkTask>()
-            "Educational" -> tasks.filterIsInstance<EducationalTask>()
+            "personal" -> tasks.filterIsInstance<PersonalTask>()
+            "work" -> tasks.filterIsInstance<WorkTask>()
+            "educational" -> tasks.filterIsInstance<EducationalTask>()
             else -> throw InvalidTaskTypeException()
         }
 
@@ -325,7 +332,7 @@ class TaskManager {
 
 fun main() {
     println("(__TASK_MANAGER__)")
-    var obj = TaskManager()
+    val obj = TaskManager()
     while (true) {
         try {
             obj.operation()
