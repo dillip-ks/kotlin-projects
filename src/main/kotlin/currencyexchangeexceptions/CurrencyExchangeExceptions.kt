@@ -4,10 +4,10 @@ sealed class CurrencyExchangeExceptions(
     message: String?,
 ) : RuntimeException(message)
 
-class InvalidCurrencyException : CurrencyExchangeExceptions("The currency is not valid")
+class InvalidCurrencyException : CurrencyExchangeExceptions("The entered currency is Invalid.")
 
-class InvalidAmountException : CurrencyExchangeExceptions("The amount entered is invalid")
+class InvalidAmountException : CurrencyExchangeExceptions("The entered amount is Invalid ")
 
-class DataFetchException(
+class DataFetchError(
     message: String?,
 ) : CurrencyExchangeExceptions(message)
